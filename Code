@@ -1,0 +1,58 @@
+import tkinter as tk
+from tkinter import messagebox
+import random
+
+class TasKagitMakasOyunu:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Rock Paper Scissors Game")
+        self.root.geometry("400x200")  # Set screen size
+
+        self.hamleler = ['Taş', 'Kağıt', 'Makas']
+        self.hamle_sayisi = {'Taş': 0, 'Kağıt': 0, 'Makas': 0}
+
+        self.label = tk.Label(root, text="Taş, Kağıt, Makas!", font=("Helvetica", 16))
+        self.label.pack(pady=10)
+
+        self.tas_button = tk.Button(root, text="Taş", command=lambda: self.oyun("Taş"))
+        self.tas_button.pack(side=tk.LEFT, padx=10)
+
+        self.kagit_button = tk.Button(root, text="Kağıt", command=lambda: self.oyun("Kağıt"))
+        self.kagit_button.pack(side=tk.LEFT, padx=10)
+
+        self.makas_button = tk.Button(root, text="Makas", command=lambda: self.oyun("Makas"))
+        self.makas_button.pack(side=tk.LEFT, padx=10)
+
+    def oyun(self, oyuncu_hamlesi):
+        bilgisayar_hamlesi = self.bilgisayar_hamlesi_sec()
+
+        sonuc = self.sonucu_bul(oyuncu_hamlesi, bilgisayar_hamlesi)
+
+        messagebox.showinfo("Sonuç", f"Oyuncu: {oyuncu_hamlesi}\nBilgisayar: {bilgisayar_hamlesi}\nSonuç: {sonuc}")
+
+    def bilgisayar_hamlesi_sec(self):
+        # Planning a startegy based on player moves
+        if self.hamle_sayisi['Taş'] >= self.hamle_sayisi['Kağıt'] and self.hamle_sayisi['Taş'] >= self.hamle_sayisi['Makas']:
+            return 'Kağıt'
+        elif self.hamle_sayisi['Kağıt'] >= self.hamle_sayisi['Taş'] and self.hamle_sayisi['Kağıt'] >= self.hamle_sayisi['Makas']:
+            return 'Makas'
+        else:
+            return 'Taş'
+
+    def sonucu_bul(self, oyuncu_hamlesi, bilgisayar_hamlesi):
+        # Update move clock
+        self.hamle_sayisi[oyuncu_hamlesi] += 1
+
+        if oyuncu_hamlesi == bilgisayar_hamlesi:
+            return "Berabere!"
+        elif (oyuncu_hamlesi == 'Taş' and bilgisayar_hamlesi == 'Makas') or \
+             (oyuncu_hamlesi == 'Kağıt' and bilgisayar_hamlesi == 'Taş') or \
+             (oyuncu_hamlesi == 'Makas' and bilgisayar_hamlesi == 'Kağıt'):
+            return "Tebrikler! Kazandınız."
+        else:
+            return "Üzgünüz. Bilgisayar kazandı."
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = TasKagitMakasOyunu(root)
+    root.mainloop()
