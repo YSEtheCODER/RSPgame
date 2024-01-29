@@ -1,1 +1,1 @@
-Hi. My name is yigitsettar and I made classical game called rock scissors paper. Just copy and paste the code and run it. Have fun
+Hi. My name is yigitsettar and I made classical game called rock scissors paper.There is a little differance.Computer play this game based on your moves and tries to win the game. Just copy and paste the code and run it. Have fun
